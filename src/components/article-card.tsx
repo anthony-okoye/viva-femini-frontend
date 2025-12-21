@@ -9,7 +9,7 @@ interface ArticleCardProps {
 export function ArticleCard({ title, image, link }: ArticleCardProps) {
   return (
     <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow group/card cursor-pointer">
-      <div className="aspect-[16/10] w-full overflow-hidden bg-gray-100">
+      <div className="aspect-16/10 w-full overflow-hidden bg-gray-100">
         <img src={image || "/placeholder.svg"} alt={title} className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" />
       </div>
       <div className="p-4">

@@ -15,7 +15,7 @@ export function TipCard({ icon, title, description, action, colorClass }: TipCar
 
   return (
     <div className={`${bgColors[colorClass]} rounded-2xl p-5 flex flex-col items-start gap-4`}>
-      <div className="w-12 h-12 rounded-full bg-white/50 flex items-center justify-center flex-shrink-0 text-2xl">
+      <div className="w-12 h-12 rounded-full bg-white/50 flex items-center justify-center shrink-0 text-2xl">
         {icon}
       </div>
       <div className="flex-1">

@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card"
 
 export function ReferralCard() {
   return (
-    <Card className="p-5 bg-gradient-to-r from-pink-50 to-purple-50 border-0 shadow-sm relative group">
+    <Card className="p-5 bg-linear-to-r from-pink-50 to-purple-50 border-0 shadow-sm relative group">
       <button className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer">
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path

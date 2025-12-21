@@ -9,7 +9,7 @@ export function CycleCalendar() {
   const [selectedMonth] = useState("October 2025");
 
   return (
-    <Card className="p-6 bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-0 shadow-lg">
+    <Card className="p-6 bg-linear-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-0 shadow-lg">
       <div className="mb-4">
         <p className="text-sm opacity-90 mb-2">Today, October 14</p>
         <button className="flex items-center gap-2 text-lg font-semibold cursor-pointer">
@@ -78,7 +78,7 @@ export function CycleCalendar() {
 
         <p className="text-center text-sm text-gray-600 mb-2 relative z-10">Today is Cycle Day</p>
         <div className="flex items-center justify-center mb-4 relative z-10">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center">
+          <div className="w-24 h-24 rounded-full bg-linear-to-br from-pink-400 to-pink-600 flex items-center justify-center">
             <span className="text-4xl font-bold text-white">21</span>
           </div>
         </div>
