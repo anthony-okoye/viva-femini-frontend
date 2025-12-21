@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/Button";
-import { Input } from "../ui/Input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Mail, Lock } from "lucide-react";
 import api from "@/lib/api";
 

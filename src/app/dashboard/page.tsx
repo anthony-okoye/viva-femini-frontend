@@ -1,49 +1,37 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { Button } from "@/components/ui/Button";
-import { LogOut, User } from "lucide-react";
+import { HealthHeader } from "@/components/health-header";
+import { CycleCalendar } from "@/components/cycle-calendar";
+import { CycleHighlight } from "@/components/cycle-highlight";
+import { DailyCheckOffs } from "@/components/daily-check-offs";
+import { ReferralCard } from "@/components/referral-card";
+import { PregnancyTest } from "@/components/pregnancy-test";
+import { QuickActions } from "@/components/quick-actions";
+import { RecommendedArticles } from "@/components/recommended-articles";
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 justify-between items-center">
-            <span className="text-xl font-bold text-[#2D016C]">VivaFemini</span>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-700 font-medium">
-                {user?.email}
-              </div>
-              <Button variant="outline" size="sm" onClick={logout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-background">
+      <HealthHeader />
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-12 w-12 rounded-full bg-[#2D016C]/10 flex items-center justify-center text-[#2D016C]">
-              <User size={24} />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-gray-500">Welcome back to your workspace</p>
-            </div>
+      <main className="container mx-auto px-4 md:px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column */}
+          <div className="space-y-6">
+            <CycleCalendar />
+            <ReferralCard />
+            <PregnancyTest />
+            <QuickActions />
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-32 bg-gray-50 rounded-xl border border-dashed border-gray-300 flex items-center justify-center text-gray-400">
-                Widget {i}
-              </div>
-            ))}
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            <CycleHighlight />
+            <DailyCheckOffs />
+            <RecommendedArticles />
           </div>
         </div>
       </main>
