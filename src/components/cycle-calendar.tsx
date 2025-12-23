@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
+import LeavesIcon from "@/assets/game-icons_three-leaves.svg";
 
 const DAYS = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 
@@ -65,15 +66,11 @@ export function CycleCalendar() {
       </div>
 
       {/* Cycle info card */}
-      <div className="relative bg-white text-gray-900 rounded-3xl p-6 overflow-hidden">
+      <div className="relative bg-white/80 text-gray-900 rounded-3xl p-6 overflow-hidden">
         {/* Decorative leaves */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="absolute left-4 top-4 w-32 h-32" viewBox="0 0 100 100" fill="currentColor">
-            <path d="M50 10 Q70 30 70 50 Q70 70 50 90 Q30 70 30 50 Q30 30 50 10" />
-          </svg>
-          <svg className="absolute right-4 bottom-4 w-40 h-40" viewBox="0 0 100 100" fill="currentColor">
-            <path d="M50 10 Q70 30 70 50 Q70 70 50 90 Q30 70 30 50 Q30 30 50 10" />
-          </svg>
+        <div className="absolute inset-0">
+          <LeavesIcon className="absolute left-4 top-4 w-32 h-32 -rotate-12" />
+          <LeavesIcon className="absolute right-4 bottom-4 w-40 h-40 rotate-12" />
         </div>
 
         <p className="text-center text-sm text-gray-600 mb-2 relative z-10">Today is Cycle Day</p>

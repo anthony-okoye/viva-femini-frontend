@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card"
+import ReferIcon from "@/assets/refer-icon.svg"
 
 export function ReferralCard() {
   return (
@@ -12,12 +13,14 @@ export function ReferralCard() {
           />
         </svg>
       </button>
-      <div className="flex items-center gap-3">
-        <div className="text-4xl">💝</div>
-        <div className="flex-1">
-          <h3 className="font-bold text-gray-900 mb-1">Refer your friends to VivaFemini 💕✨</h3>
+      <div className="flex items-center justify-between gap-3 w-full">
+        <div className="flex-1 min-w-0">
+          <h3 className="font-bold text-gray-900 mb-1">Refer your friends to VivaFemini 💕💐</h3>
           <p className="text-sm text-gray-600">Gift your friend 30 days of free Premium to help them thrive</p>
         </div>
+        <div className="flex shrink-0 justify-end">
+            <ReferIcon/>
+          </div>
       </div>
     </Card>
   )

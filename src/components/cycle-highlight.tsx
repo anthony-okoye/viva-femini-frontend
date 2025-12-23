@@ -68,10 +68,10 @@ export function CycleHighlight() {
   return (
     <div className="space-y-6">
       <Card className="p-6 border-0 shadow-sm flex flex-col items-center overflow-hidden">
-        <h2 className="text-2xl font-bold text-center mb-2 text-primary">
+        <h2 className="text-2xl font-bold text-center text-primary">
           Cycle Highlight
         </h2>
-        <p className="text-center text-gray-600 text-sm mb-8">Understand your cycle and take care during peak days</p>
+        <p className="text-center px-8 text-gray-800 text-sm">Understand your cycle and take care during peak days</p>
         
         <button
           className="mx-auto block px-4 py-2 rounded-lg text-sm font-medium bg-blush text-primary hover:opacity-90 transition-opacity cursor-pointer mb-12"
