@@ -1,8 +1,10 @@
 import { Card } from "@/components/ui/card"
+import { StaticImageData } from "next/image"
+import Image from "next/image"
 
 interface ArticleCardProps {
   title: string
-  image: string
+  image: string | StaticImageData;
   link?: string
 }
 
@@ -10,7 +12,7 @@ export function ArticleCard({ title, image, link }: ArticleCardProps) {
   return (
     <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow group/card cursor-pointer">
       <div className="aspect-16/10 w-full overflow-hidden bg-gray-100">
-        <img src={image || "/placeholder.svg"} alt={title} className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" />
+        <Image src={image || "/placeholder.svg"} alt={title} className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" />
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-gray-900 mb-3 leading-snug line-clamp-2">{title}</h3>
