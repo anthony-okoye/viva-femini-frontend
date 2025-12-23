@@ -2,12 +2,14 @@
 
 import { Card } from "@/components/ui/card"
 import { useState } from "react"
+import FaintLine from "@/assets/faint-line.svg"
+import DidntTakeTest from "@/assets/take-test.svg"
 
 const TEST_OPTIONS = [
-  { label: "Didn't take test", icon: "🚫" },
-  { label: "Positive", icon: "✅" },
-  { label: "Faint line", icon: "📋" },
-  { label: "Negative", icon: "❌" },
+  { label: "Didn't take test", icon: DidntTakeTest },
+  { label: "Positive", icon: FaintLine },
+  { label: "Faint line", icon: FaintLine },
+  { label: "Negative", icon: FaintLine },
 ]
 
 export function PregnancyTest() {
@@ -28,30 +30,34 @@ export function PregnancyTest() {
       <h3 className="font-semibold text-gray-900 mb-4">Hi! Did you take your pregnancy test?</h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-        {TEST_OPTIONS.map((option, index) => (
+        {TEST_OPTIONS.map((option, index) => {
+          const Icon = option.icon;
+          
+          return(
           <button
             key={index}
             onClick={() => setSelected(index)}
             className={`
-              flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all cursor-pointer
+              flex flex-col items-center gap-2 p-3 rounded-xl transition-all cursor-pointer
               ${
                 selected === index
-                  ? "border-primary bg-blush"
-                  : "border-gray-100 hover:border-peach hover:bg-peach/50"
+                  ? "text-white"
+                  : "text-white"
               }
             `}
           >
             <div
-              className="w-12 h-12 rounded-full flex items-center justify-center text-2xl bg-primary text-white shadow-sm"
+              className="w-12 h-12 flex items-center justify-center text-2xl text-white"
             >
-              {option.icon}
+              <Icon className="w-8 h-8" /> 
             </div>
             <span className="text-[10px] sm:text-xs text-center text-gray-700 font-medium leading-none">{option.label}</span>
           </button>
-        ))}
+          );
+        })}
       </div>
 
-      <button className="w-full py-2 rounded-lg bg-gray-100 text-gray-700 font-medium text-sm hover:bg-gray-200 transition-colors cursor-pointer">
+      <button className="mx-auto flex w-[100px] items-center justify-center py-2 rounded-lg bg-gray-100 text-gray-400 font-medium text-sm hover:bg-gray-200 transition-colors cursor-pointer">
         Apply
       </button>
     </Card>
