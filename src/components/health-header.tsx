@@ -67,7 +67,7 @@ export function HealthHeader() {
         </div>
       </div>
 
-      <nav className="hidden lg:flex items-center gap-2">
+      <nav className="hidden lg:flex items-center gap-1 bg-[#F3F4F6] p-2.5 rounded-full border border-gray-200/50">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -75,10 +75,10 @@ export function HealthHeader() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-200",
+                "flex items-center gap-2 rounded-full px-6 py-2.5 font-medium transition-all duration-200",
                 isActive
-                  ? "bg-primary text-white shadow-md shadow-primary/20 scale-105"
-                  : "bg-background text-foreground hover:bg-secondary"
+                  ? "bg-primary text-white shadow-sm scale-105"
+                  : "bg-white text-gray-600 hover:bg-gray-50 hover:text-primary shadow-xs"
               )}
             >
               {item.icon}

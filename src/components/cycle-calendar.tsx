@@ -10,9 +10,9 @@ export function CycleCalendar() {
 
   return (
     <Card className="p-6 bg-linear-to-br from-pink-400 via-pink-500 to-pink-600 text-white border-0 shadow-lg">
-      <div className="mb-4">
+      <div className="mb-4 text-center">
         <p className="text-sm opacity-90 mb-2">Today, October 14</p>
-        <button className="flex items-center gap-2 text-lg font-semibold cursor-pointer">
+        <button className="flex items-center justify-center gap-2 text-lg font-semibold cursor-pointer mx-auto">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
