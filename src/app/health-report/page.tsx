@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CycleInfoPill } from "@/components/cycle-info-pill"
 import { SymptomFrequencyChart } from "@/components/symptom-frequency-chart"
 import { Button } from "@/components/ui/button"
-import { Calendar, FileText, Download, Copy, CircleQuestionMark } from "lucide-react"
+import { Calendar, FileText, CloudDownload, Copy, CircleQuestionMark } from "lucide-react"
 import EstimatedNextPhaseIcon from "@/assets/estimated-next-phase.svg"
 import OvulationWindowIcon from "@/assets/ovulation-window.svg"
 import PeriodDurationIcon from "@/assets/period-duration.svg"
@@ -174,11 +174,104 @@ export default function HealthReportPage() {
                 <h3 className="text-base font-semibold text-gray-900">Symptom Frequency</h3>
                 <p className="text-sm text-gray-600">Study your body system & understand your wellbeing</p>
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              
+              {/* Desktop: 2x3 grid */}
+              <div className="hidden lg:grid lg:grid-cols-3 gap-6">
                 <SymptomFrequencyChart label="Physical Pain" percentage={55} color="red" />
                 <SymptomFrequencyChart label="Mood & Mental" percentage={75} color="purple" />
-                <SymptomFrequencyChart label="Digestion & Appetite" percentage={62} color="green" />
+                <SymptomFrequencyChart label="Period Indicators" percentage={23} color="yellow" />
                 <SymptomFrequencyChart label="Sexual Health" percentage={32} color="pink" />
+                <SymptomFrequencyChart label="Digestion & Appetite" percentage={62} color="green" />
+              </div>
+
+              {/* Mobile: Charts in row, labels below in 2 rows */}
+              <div className="lg:hidden space-y-4">
+                {/* Charts row */}
+                <div className="flex justify-between items-center gap-2">
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="relative h-20 w-20">
+                      <svg className="h-full w-full -rotate-90 transform">
+                        <circle cx="40" cy="40" r="32" stroke="currentColor" strokeWidth="6" fill="none" className="text-gray-100" />
+                        <circle cx="40" cy="40" r="32" stroke="#ef4444" strokeWidth="6" fill="none" strokeDasharray="201" strokeDashoffset="90" strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-red-500">55%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="relative h-20 w-20">
+                      <svg className="h-full w-full -rotate-90 transform">
+                        <circle cx="40" cy="40" r="32" stroke="currentColor" strokeWidth="6" fill="none" className="text-gray-100" />
+                        <circle cx="40" cy="40" r="32" stroke="#a855f7" strokeWidth="6" fill="none" strokeDasharray="201" strokeDashoffset="50" strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-purple-500">75%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="relative h-20 w-20">
+                      <svg className="h-full w-full -rotate-90 transform">
+                        <circle cx="40" cy="40" r="32" stroke="currentColor" strokeWidth="6" fill="none" className="text-gray-100" />
+                        <circle cx="40" cy="40" r="32" stroke="#eab308" strokeWidth="6" fill="none" strokeDasharray="201" strokeDashoffset="155" strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-yellow-500">23%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="relative h-20 w-20">
+                      <svg className="h-full w-full -rotate-90 transform">
+                        <circle cx="40" cy="40" r="32" stroke="currentColor" strokeWidth="6" fill="none" className="text-gray-100" />
+                        <circle cx="40" cy="40" r="32" stroke="#ec4899" strokeWidth="6" fill="none" strokeDasharray="201" strokeDashoffset="137" strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-pink-500">32%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center flex-1">
+                    <div className="relative h-20 w-20">
+                      <svg className="h-full w-full -rotate-90 transform">
+                        <circle cx="40" cy="40" r="32" stroke="currentColor" strokeWidth="6" fill="none" className="text-gray-100" />
+                        <circle cx="40" cy="40" r="32" stroke="#22c55e" strokeWidth="6" fill="none" strokeDasharray="201" strokeDashoffset="76" strokeLinecap="round" />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-green-500">62%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Labels - Row 1: Physical Pain, Period Indicators */}
+                <div className="flex gap-4 justify-center">
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-red-500" />
+                    <span className="text-xs font-medium text-gray-700">Physical Pain</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-yellow-500" />
+                    <span className="text-xs font-medium text-gray-700">Period Indicators</span>
+                  </div>
+                </div>
+
+                {/* Labels - Row 2: Mood, Sexual Health, Digestion */}
+                <div className="flex gap-4 justify-center flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-purple-500" />
+                    <span className="text-xs font-medium text-gray-700">Mood & Mental</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-pink-500" />
+                    <span className="text-xs font-medium text-gray-700">Sexual Health</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500" />
+                    <span className="text-xs font-medium text-gray-700">Digestion & Appetite</span>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -192,7 +285,7 @@ export default function HealthReportPage() {
                   <p className="text-sm text-gray-600">Oct 2025 ▼</p>
                 </div>
                 <Button variant="outline" size="sm" className="bg-primary text-white hover:bg-primary/90 border-none">
-                  <Download className="mr-2 h-4 w-4" />
+                  <CloudDownload className="mr-2 h-4 w-4" />
                   Download PDF
                 </Button>
               </div>
