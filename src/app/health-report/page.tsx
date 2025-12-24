@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CycleInfoPill } from "@/components/cycle-info-pill"
 import { SymptomFrequencyChart } from "@/components/symptom-frequency-chart"
 import { Button } from "@/components/ui/button"
-import { Calendar, FileText, Download, Copy } from "lucide-react"
+import { Calendar, FileText, Download, Copy, CircleQuestionMark } from "lucide-react"
 import EstimatedNextPhaseIcon from "@/assets/estimated-next-phase.svg"
 import OvulationWindowIcon from "@/assets/ovulation-window.svg"
 import PeriodDurationIcon from "@/assets/period-duration.svg"
@@ -87,10 +87,20 @@ export default function HealthReportPage() {
                       0
                     </text>
 
-                    {/* Grid lines */}
-                    <line x1="50" y1="20" x2="580" y2="20" className="stroke-gray-200" strokeWidth="1" />
-                    <line x1="50" y1="100" x2="580" y2="100" className="stroke-gray-200" strokeWidth="1" />
-                    <line x1="50" y1="180" x2="580" y2="180" className="stroke-gray-200" strokeWidth="1" />
+                    {/* X and Y axis lines (L shape) */}
+                    <line x1="50" y1="20" x2="50" y2="180" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="50" y1="180" x2="580" y2="180" className="stroke-gray-400" strokeWidth="2" />
+
+                    {/* Y-axis tick marks */}
+                    <line x1="45" y1="20" x2="50" y2="20" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="45" y1="100" x2="50" y2="100" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="45" y1="180" x2="50" y2="180" className="stroke-gray-400" strokeWidth="2" />
+
+                    {/* X-axis tick marks */}
+                    <line x1="80" y1="180" x2="80" y2="185" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="220" y1="180" x2="220" y2="185" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="360" y1="180" x2="360" y2="185" className="stroke-gray-400" strokeWidth="2" />
+                    <line x1="500" y1="180" x2="500" y2="185" className="stroke-gray-400" strokeWidth="2" />
 
                     {/* Line chart */}
                     <polyline
@@ -105,7 +115,7 @@ export default function HealthReportPage() {
                     {/* Data points */}
                     {[80, 150, 220, 290, 360, 430, 500].map((x, i) => {
                       const y = [180, 170, 50, 90, 120, 120, 120][i]
-                      return <circle key={i} cx={x} cy={y} r="4" className="fill-primary" />
+                      return <circle key={i} cx={x} cy={y} r="4" className="fill-white stroke-primary" strokeWidth="2" />
                     })}
 
                     {/* X-axis labels */}
@@ -123,8 +133,8 @@ export default function HealthReportPage() {
                     </text>
                   </svg>
                 </div>
-                <p className="text-xs text-gray-500 flex items-start gap-2">
-                  <span className="text-gray-400">ℹ️</span>
+                <p className="text-xs text-gray-500 flex items-center gap-2">
+                  <span className="text-xs"><CircleQuestionMark/></span>
                   Higher peaks indicate stronger symptoms. Flow overlay shows heavier days.
                 </p>
               </CardContent>
