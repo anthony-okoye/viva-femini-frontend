@@ -12,41 +12,42 @@ import { Textarea } from "@/components/ui/textarea"
 import { Check } from "lucide-react"
 
 const physicalPainSymptoms = [
-  { id: "cramps", label: "Cramps", emoji: "💧", color: "red" as const },
-  { id: "diarrhea", label: "Diarrhea", emoji: "😖", color: "yellow" as const },
-  { id: "fatigue", label: "Fatigue", emoji: "😴", color: "yellow" as const },
-  { id: "headache", label: "Headache", emoji: "🤕", color: "red" as const },
-  { id: "breast-tenderness", label: "Breast tenderness", emoji: "🤱", color: "pink" as const },
-  { id: "abdominal-pain", label: "Abdominal pain", emoji: "😣", color: "yellow" as const },
-  { id: "pelvic-pain", label: "Pelvic pain", emoji: "👤", color: "purple" as const },
+  { id: "cramps", label: "Cramps", emoji: "🩸", color: "pink" as const },
+  { id: "diarrhea", label: "Diarrhea", emoji: "😖", color: "pink" as const },
+  { id: "fatigue", label: "Fatigue", emoji: "😴", color: "pink" as const },
+  { id: "headache", label: "Headache", emoji: "🤦🏽‍♀️", color: "pink" as const },
+  { id: "neusea", label: "Neusea", emoji: "🤢", color: "pink" as const },
+  { id: "breast-tenderness", label: "Breast tenderness", emoji: "🫦", color: "pink" as const },
+  { id: "abdominal-pain", label: "Abdominal pain", emoji: "😖", color: "pink" as const },
+  { id: "pelvic-pain", label: "Pelvic pain", emoji: "🧎🏽‍♀️", color: "pink" as const },
   { id: "water-retention", label: "Water retention", emoji: "💦", color: "pink" as const },
-  { id: "lower-back-pain", label: "Lower back pain", emoji: "🧍", color: "purple" as const },
-  { id: "appetite-changes", label: "Appetite changes", emoji: "🍎", color: "purple" as const },
+  { id: "lower-back-pain", label: "Lower back pain", emoji: "👩🏽‍🦯", color: "pink" as const },
+  { id: "appetite-changes", label: "Appetite changes", emoji: "🤷🏽‍♀️", color: "pink" as const },
 ]
 
 const moodSymptoms = [
-  { id: "happy", label: "Happy", emoji: "😊", color: "yellow" as const },
-  { id: "neutral", label: "Neutral", emoji: "😐", color: "yellow" as const },
-  { id: "sad", label: "Sad", emoji: "😢", color: "yellow" as const },
-  { id: "low-motivation", label: "Low Motivation", emoji: "😔", color: "blue" as const },
-  { id: "mood-swings", label: "Mood swings", emoji: "🤪", color: "purple" as const },
-  { id: "irritability", label: "Irritability", emoji: "😠", color: "red" as const },
-  { id: "cravings", label: "Cravings", emoji: "🍫", color: "yellow" as const },
-  { id: "tearfulness", label: "Tearfulness", emoji: "😭", color: "blue" as const },
-  { id: "difficulty-concentrating", label: "Difficulty Concentrating", emoji: "😵", color: "yellow" as const },
+  { id: "happy", label: "Happy", emoji: "😊", color: "pink" as const },
+  { id: "neutral", label: "Neutral", emoji: "😐", color: "pink" as const },
+  { id: "sad", label: "Sad", emoji: "😔", color: "pink" as const },
+  { id: "low-motivation", label: "Low Motivation", emoji: "😰", color: "pink" as const },
+  { id: "mood-swings", label: "Mood swings", emoji: "😤", color: "pink" as const },
+  { id: "irritability", label: "Irritability", emoji: "😒", color: "pink" as const },
+  { id: "cravings", label: "Cravings", emoji: "😋", color: "pink" as const },
+  { id: "tearfulness", label: "Tearfulness", emoji: "🥹", color: "pink" as const },
+  { id: "difficulty-concentrating", label: "Difficulty Concentrating", emoji: "😑", color: "pink" as const },
 ]
 
 const periodIndicators = [
-  { id: "spotting", label: "Spotting", emoji: "💧", color: "red" as const },
-  { id: "heavier-flow", label: "heavier flow", emoji: "💦", color: "blue" as const },
-  { id: "lighter-flow", label: "lighter flow", emoji: "💧", color: "blue" as const },
-  { id: "virginal-dryness", label: "Virginal Dryness", emoji: "😶", color: "yellow" as const },
+  { id: "spotting", label: "Spotting", emoji: "🩸", color: "pink" as const },
+  { id: "heavier-flow", label: "heavier flow", emoji: "💦", color: "pink" as const },
+  { id: "lighter-flow", label: "lighter flow", emoji: "💧", color: "pink" as const },
+  { id: "virginal-dryness", label: "Virginal Dryness", emoji: "😐", color: "pink" as const },
 ]
 
 const sexualHealthSymptoms = [
-  { id: "increased-sex-drive", label: "Increased sex drive", emoji: "😏", color: "yellow" as const },
-  { id: "decreased-sex-drive", label: "Decreased sex drive", emoji: "😐", color: "yellow" as const },
-  { id: "virginal-discharge", label: "Virginal discharge", emoji: "💧", color: "yellow" as const },
+  { id: "increased-sex-drive", label: "Increased sex drive", emoji: "😊", color: "pink" as const },
+  { id: "decreased-sex-drive", label: "Decreased sex drive", emoji: "😐", color: "pink" as const },
+  { id: "virginal-discharge", label: "Virginal discharge", emoji: "😔", color: "pink" as const },
 ]
 
 export default function TrackingPage() {
@@ -86,10 +87,10 @@ export default function TrackingPage() {
                   onToggle={(id) => toggleSymptom(selectedPeriodIndicators, setSelectedPeriodIndicators, id)}
                 />
               </CardContent>
-            </Card>
+            
 
             {/* Sexual Health */}
-            <Card className="border-gray-200">
+            
               <CardContent className="p-6">
                 <SymptomSection
                   title="Sexual Health"
