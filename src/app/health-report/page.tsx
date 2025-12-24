@@ -7,6 +7,10 @@ import { CycleInfoPill } from "@/components/cycle-info-pill"
 import { SymptomFrequencyChart } from "@/components/symptom-frequency-chart"
 import { Button } from "@/components/ui/button"
 import { Calendar, FileText, Download, Copy } from "lucide-react"
+import EstimatedNextPhaseIcon from "@/assets/estimated-next-phase.svg"
+import OvulationWindowIcon from "@/assets/ovulation-window.svg"
+import PeriodDurationIcon from "@/assets/period-duration.svg"
+import CycleLengthIcon from "@/assets/cycle-length.svg"
 
 export default function HealthReportPage() {
   const { user } = useAuth()
@@ -36,25 +40,25 @@ export default function HealthReportPage() {
                 <h2 className="text-lg font-semibold text-gray-900">Cycle Summary – October 2025</h2>
                 <div className="flex flex-wrap gap-2">
                   <CycleInfoPill
-                    icon={<Calendar className="h-4 w-4" />}
+                    icon={<CycleLengthIcon />}
                     label="Cycle Length"
                     value="28 Days"
-                    color="pink"
+                    color="orange"
                   />
                   <CycleInfoPill
-                    icon={<FileText className="h-4 w-4" />}
+                    icon={<PeriodDurationIcon />}
                     label="Period Duration"
                     value="5 Days"
                     color="pink"
                   />
                   <CycleInfoPill
-                    icon={<Calendar className="h-4 w-4" />}
+                    icon={<EstimatedNextPhaseIcon />}
                     label="Estimated Next Period"
                     value="Nov 4"
                     color="purple"
                   />
                   <CycleInfoPill
-                    icon={<FileText className="h-4 w-4" />}
+                    icon={<OvulationWindowIcon />}
                     label="Ovulation Window"
                     value="Oct 17-22"
                     color="blue"

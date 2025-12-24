@@ -55,7 +55,7 @@ export function HealthHeader() {
           </div>
         </div>
 
-        <nav className="hidden lg:flex items-center gap-1 bg-[#F3F4F6] p-2.5 rounded-lg border border-gray-200/50">
+        <nav className="hidden lg:flex items-center gap-1 bg-menu-ash px-3.5 py-2 rounded-full border border-gray-200/50">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             const isHeartIcon = item.label === "Tracking";
@@ -65,7 +65,7 @@ export function HealthHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-2xl px-6 py-2 font-medium transition-all duration-200",
+                  "flex flex-col items-center gap-1 rounded-full w-50 px-8 py-2 font-medium transition-all duration-200",
                   isActive
                     ? `bg-primary text-white shadow-sm ${
                         isHomeIcon 
@@ -94,7 +94,7 @@ export function HealthHeader() {
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-menu-ash rounded-full border-t border-gray-200 shadow-lg z-50">
         <div className="flex items-center justify-around px-4 py-3">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -105,7 +105,7 @@ export function HealthHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-4 py-2 rounded-2xl transition-all duration-200 min-w-[70px]",
+                  "flex flex-col items-center gap-1 rounded-full w-50 px-8 py-2 font-medium transition-all duration-200 min-w-[70px]",
                   isActive
                     ? `bg-primary text-white shadow-sm ${
                         isHomeIcon 
