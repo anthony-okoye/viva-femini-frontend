@@ -1,17 +1,18 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { SymptomColor } from "@/lib/contentService"
 
 interface SymptomPillProps {
   label: string
   emoji?: string
   selected?: boolean
   onClick?: () => void
-  color?: "pink" | "red" | "purple" | "yellow" | "blue"
+  color?: SymptomColor
 }
 
 export function SymptomPill({ label, emoji, selected = false, onClick, color = "pink" }: SymptomPillProps) {
-  const colorClasses = {
+  const colorClasses: Record<SymptomColor, string> = {
     pink: "bg-pink-100/50 text-pink-700 border-pink-200 hover:bg-pink-100",
     red: "bg-red-100/50 text-red-700 border-red-200 hover:bg-red-100",
     purple: "bg-purple-100/50 text-purple-700 border-purple-200 hover:bg-purple-100",

@@ -1,13 +1,7 @@
 "use client"
 
 import { SymptomPill } from "./symptom-pill"
-
-interface Symptom {
-  id: string
-  label: string
-  emoji?: string
-  color?: "pink" | "red" | "purple" | "yellow" | "blue"
-}
+import { Symptom } from "@/lib/contentService"
 
 interface SymptomSectionProps {
   title: string

@@ -1,10 +1,12 @@
 import api from "./api";
 
+export type SymptomColor = "pink" | "red" | "purple" | "yellow" | "blue";
+
 export interface Symptom {
   id: string;
   label: string;
   emoji: string;
-  color: string;
+  color: SymptomColor;
   description?: string;
 }
 
