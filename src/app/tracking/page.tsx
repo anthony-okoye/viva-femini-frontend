@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "@/context/AuthContext"
+import { useSymptomCategories } from "@/hooks/useContent"
 import { HealthHeader } from "@/components/health-header"
 import { WelcomeCard } from "@/components/welcome-card"
 import { SymptomSection } from "@/components/symptom-section"
@@ -10,61 +11,59 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Check } from "lucide-react"
-
-const physicalPainSymptoms = [
-  { id: "cramps", label: "Cramps", emoji: "🩸", color: "pink" as const },
-  { id: "diarrhea", label: "Diarrhea", emoji: "😖", color: "pink" as const },
-  { id: "fatigue", label: "Fatigue", emoji: "😴", color: "pink" as const },
-  { id: "headache", label: "Headache", emoji: "🤦🏽‍♀️", color: "pink" as const },
-  { id: "neusea", label: "Neusea", emoji: "🤢", color: "pink" as const },
-  { id: "breast-tenderness", label: "Breast tenderness", emoji: "🫦", color: "pink" as const },
-  { id: "abdominal-pain", label: "Abdominal pain", emoji: "😖", color: "pink" as const },
-  { id: "pelvic-pain", label: "Pelvic pain", emoji: "🧎🏽‍♀️", color: "pink" as const },
-  { id: "water-retention", label: "Water retention", emoji: "💦", color: "pink" as const },
-  { id: "lower-back-pain", label: "Lower back pain", emoji: "👩🏽‍🦯", color: "pink" as const },
-  { id: "appetite-changes", label: "Appetite changes", emoji: "🤷🏽‍♀️", color: "pink" as const },
-]
-
-const moodSymptoms = [
-  { id: "happy", label: "Happy", emoji: "😊", color: "pink" as const },
-  { id: "neutral", label: "Neutral", emoji: "😐", color: "pink" as const },
-  { id: "sad", label: "Sad", emoji: "😔", color: "pink" as const },
-  { id: "low-motivation", label: "Low Motivation", emoji: "😰", color: "pink" as const },
-  { id: "mood-swings", label: "Mood swings", emoji: "😤", color: "pink" as const },
-  { id: "irritability", label: "Irritability", emoji: "😒", color: "pink" as const },
-  { id: "cravings", label: "Cravings", emoji: "😋", color: "pink" as const },
-  { id: "tearfulness", label: "Tearfulness", emoji: "🥹", color: "pink" as const },
-  { id: "difficulty-concentrating", label: "Difficulty Concentrating", emoji: "😑", color: "pink" as const },
-]
-
-const periodIndicators = [
-  { id: "spotting", label: "Spotting", emoji: "🩸", color: "pink" as const },
-  { id: "heavier-flow", label: "heavier flow", emoji: "💦", color: "pink" as const },
-  { id: "lighter-flow", label: "lighter flow", emoji: "💧", color: "pink" as const },
-  { id: "virginal-dryness", label: "Virginal Dryness", emoji: "😐", color: "pink" as const },
-]
-
-const sexualHealthSymptoms = [
-  { id: "increased-sex-drive", label: "Increased sex drive", emoji: "😊", color: "pink" as const },
-  { id: "decreased-sex-drive", label: "Decreased sex drive", emoji: "😐", color: "pink" as const },
-  { id: "virginal-discharge", label: "Virginal discharge", emoji: "😔", color: "pink" as const },
-]
+import { SkeletonCard, SkeletonText } from "@/components/loading/SkeletonCard"
 
 export default function TrackingPage() {
   const { user } = useAuth()
-  const [selectedPhysicalPain, setSelectedPhysicalPain] = useState<string[]>([])
-  const [selectedMood, setSelectedMood] = useState<string[]>([])
-  const [selectedPeriodIndicators, setSelectedPeriodIndicators] = useState<string[]>([])
-  const [selectedSexualHealth, setSelectedSexualHealth] = useState<string[]>([])
+  const { symptomCategories, loading } = useSymptomCategories()
+  const [selectedSymptoms, setSelectedSymptoms] = useState<Record<string, string[]>>({})
   const [flowIntensity, setFlowIntensity] = useState(3)
   const [notes, setNotes] = useState("")
 
-  const toggleSymptom = (list: string[], setList: (list: string[]) => void, symptomId: string) => {
-    if (list.includes(symptomId)) {
-      setList(list.filter((id) => id !== symptomId))
-    } else {
-      setList([...list, symptomId])
-    }
+  const toggleSymptom = (category: string, symptomId: string) => {
+    setSelectedSymptoms((prev) => {
+      const categorySymptoms = prev[category] || []
+      if (categorySymptoms.includes(symptomId)) {
+        return {
+          ...prev,
+          [category]: categorySymptoms.filter((id) => id !== symptomId),
+        }
+      } else {
+        return {
+          ...prev,
+          [category]: [...categorySymptoms, symptomId],
+        }
+      }
+    })
+  }
+
+  const getCategoryByName = (name: string) => {
+    return symptomCategories.find((cat) => cat.category === name)
+  }
+
+  const physicalPainCategory = getCategoryByName("Physical Pain")
+  const moodCategory = getCategoryByName("Mood & Mental")
+  const periodIndicatorsCategory = getCategoryByName("Period Indicators")
+  const sexualHealthCategory = getCategoryByName("Sexual Health")
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <HealthHeader />
+        <main className="container mx-auto px-4 md:px-6 py-8">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="space-y-6">
+              <SkeletonCard className="h-32" />
+              <SkeletonCard className="h-64" />
+              <SkeletonCard className="h-64" />
+            </div>
+            <div className="space-y-6">
+              <SkeletonCard className="h-96" />
+            </div>
+          </div>
+        </main>
+      </div>
+    )
   }
 
   return (
@@ -78,28 +77,32 @@ export default function TrackingPage() {
             <WelcomeCard />
 
             {/* Period Indicators */}
-            <Card className="border-gray-200">
-              <CardContent className="p-6">
-                <SymptomSection
-                  title="Period Indicators"
-                  symptoms={periodIndicators}
-                  selectedSymptoms={selectedPeriodIndicators}
-                  onToggle={(id) => toggleSymptom(selectedPeriodIndicators, setSelectedPeriodIndicators, id)}
-                />
-              </CardContent>
-            
+            {periodIndicatorsCategory && (
+              <Card className="border-gray-200">
+                <CardContent className="p-6">
+                  <SymptomSection
+                    title={periodIndicatorsCategory.category}
+                    symptoms={periodIndicatorsCategory.symptoms}
+                    selectedSymptoms={selectedSymptoms[periodIndicatorsCategory.category] || []}
+                    onToggle={(id) => toggleSymptom(periodIndicatorsCategory.category, id)}
+                  />
+                </CardContent>
+              </Card>
+            )}
 
             {/* Sexual Health */}
-            
-              <CardContent className="p-6">
-                <SymptomSection
-                  title="Sexual Health"
-                  symptoms={sexualHealthSymptoms}
-                  selectedSymptoms={selectedSexualHealth}
-                  onToggle={(id) => toggleSymptom(selectedSexualHealth, setSelectedSexualHealth, id)}
-                />
-              </CardContent>
-            </Card>
+            {sexualHealthCategory && (
+              <Card className="border-gray-200">
+                <CardContent className="p-6">
+                  <SymptomSection
+                    title={sexualHealthCategory.category}
+                    symptoms={sexualHealthCategory.symptoms}
+                    selectedSymptoms={selectedSymptoms[sexualHealthCategory.category] || []}
+                    onToggle={(id) => toggleSymptom(sexualHealthCategory.category, id)}
+                  />
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Right Column */}
@@ -107,20 +110,24 @@ export default function TrackingPage() {
             <Card className="border-gray-200">
               <CardContent className="p-6 space-y-6">
                 {/* Physical Pain */}
-                <SymptomSection
-                  title="Physical Pain"
-                  symptoms={physicalPainSymptoms}
-                  selectedSymptoms={selectedPhysicalPain}
-                  onToggle={(id) => toggleSymptom(selectedPhysicalPain, setSelectedPhysicalPain, id)}
-                />
+                {physicalPainCategory && (
+                  <SymptomSection
+                    title={physicalPainCategory.category}
+                    symptoms={physicalPainCategory.symptoms}
+                    selectedSymptoms={selectedSymptoms[physicalPainCategory.category] || []}
+                    onToggle={(id) => toggleSymptom(physicalPainCategory.category, id)}
+                  />
+                )}
 
                 {/* Mood & Mental */}
-                <SymptomSection
-                  title="Mood & Mental"
-                  symptoms={moodSymptoms}
-                  selectedSymptoms={selectedMood}
-                  onToggle={(id) => toggleSymptom(selectedMood, setSelectedMood, id)}
-                />
+                {moodCategory && (
+                  <SymptomSection
+                    title={moodCategory.category}
+                    symptoms={moodCategory.symptoms}
+                    selectedSymptoms={selectedSymptoms[moodCategory.category] || []}
+                    onToggle={(id) => toggleSymptom(moodCategory.category, id)}
+                  />
+                )}
 
                 {/* Flow Intensity */}
                 <FlowIntensitySlider value={flowIntensity} onChange={setFlowIntensity} />

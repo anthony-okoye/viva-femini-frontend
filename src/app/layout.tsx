@@ -13,7 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 import { AuthProvider } from "@/context/AuthContext";
+import { ContentProvider } from "@/context/ContentContext";
 import { AuthGuard } from "@/components/auth/AuthGuard";
+import { OfflineIndicator } from "@/components/loading/ContentLoader";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,10 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <AuthProvider>
-          <AuthGuard>{children}</AuthGuard>
+          <ContentProvider>
+            <AuthGuard>{children}</AuthGuard>
+            <OfflineIndicator />
+          </ContentProvider>
         </AuthProvider>
       </body>
     </html>
