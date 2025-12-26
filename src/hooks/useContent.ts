@@ -1,37 +1,56 @@
-import { useContent as useContentContext } from "@/context/ContentContext";
+import { useDashboard as useDashboardContext } from "@/context/ContentContext";
 
-export function useContent() {
-  return useContentContext();
+export function useDashboard() {
+  return useDashboardContext();
 }
 
 export function useArticles() {
-  const { content, loading } = useContentContext();
+  const { dashboardData, loading } = useDashboardContext();
   return {
-    articles: content?.articles || [],
+    articles: dashboardData?.articles || [],
     loading,
   };
 }
 
 export function useQuickActions() {
-  const { content, loading } = useContentContext();
+  const { dashboardData, loading } = useDashboardContext();
   return {
-    quickActions: content?.quickActions || [],
+    quickActions: dashboardData?.quickActions || [],
     loading,
   };
 }
 
 export function useSymptomCategories() {
-  const { content, loading } = useContentContext();
+  const { dashboardData, loading } = useDashboardContext();
   return {
-    symptomCategories: content?.symptomCategories || [],
+    symptomCategories: dashboardData?.symptomCategories || [],
     loading,
   };
 }
 
 export function useHealthTips() {
-  const { content, loading } = useContentContext();
+  const { dashboardData, loading } = useDashboardContext();
   return {
-    healthTips: content?.healthTips || [],
+    healthTips: dashboardData?.healthTips || [],
     loading,
   };
 }
+
+export function useCycleHighlights() {
+  const { dashboardData, loading } = useDashboardContext();
+  return {
+    cycleHighlights: dashboardData?.cycleHighlights || [],
+    loading,
+  };
+}
+
+export function useDailyCheckoff() {
+  const { dashboardData, loading } = useDashboardContext();
+  return {
+    dailyCheckoff: dashboardData?.dailyCheckoff || null,
+    loading,
+  };
+}
+
+// Backward compatibility exports
+export const useContent = useDashboard;

@@ -5,49 +5,49 @@ import { contentService, ContentData } from "@/lib/contentService";
 import { CacheManager } from "@/lib/cacheManager";
 import { useAuth } from "./AuthContext";
 
-interface ContentContextType {
-  content: ContentData | null;
+interface DashboardContextType {
+  dashboardData: ContentData | null;
   loading: boolean;
   error: string | null;
   isOffline: boolean;
-  refetchContent: () => Promise<void>;
+  refetchDashboard: () => Promise<void>;
 }
 
-const ContentContext = createContext<ContentContextType>({
-  content: null,
+const DashboardContext = createContext<DashboardContextType>({
+  dashboardData: null,
   loading: true,
   error: null,
   isOffline: false,
-  refetchContent: async () => {},
+  refetchDashboard: async () => {},
 });
 
-const CONTENT_CACHE_KEY = "app_content";
+const DASHBOARD_CACHE_KEY = "dashboard_data";
 
-export const ContentProvider = ({ children }: { children: React.ReactNode }) => {
+export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
-  const [content, setContent] = useState<ContentData | null>(null);
+  const [dashboardData, setDashboardData] = useState<ContentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isOffline, setIsOffline] = useState(false);
 
-  const fetchContent = async () => {
+  const fetchDashboard = async () => {
     try {
       setLoading(true);
       setError(null);
       setIsOffline(false);
 
       const data = await contentService.getAllContent();
-      setContent(data);
-      CacheManager.set(CONTENT_CACHE_KEY, data);
+      setDashboardData(data);
+      CacheManager.set(DASHBOARD_CACHE_KEY, data);
     } catch (err: any) {
-      console.error("Failed to fetch content:", err);
-      setError(err.message || "Failed to load content");
+      console.error("Failed to fetch dashboard data:", err);
+      setError(err.message || "Failed to load dashboard data");
       setIsOffline(true);
 
       // Try to load from cache
-      const cachedContent = CacheManager.get<ContentData>(CONTENT_CACHE_KEY);
-      if (cachedContent) {
-        setContent(cachedContent);
+      const cachedData = CacheManager.get<ContentData>(DASHBOARD_CACHE_KEY);
+      if (cachedData) {
+        setDashboardData(cachedData);
       }
     } finally {
       setLoading(false);
@@ -57,18 +57,18 @@ export const ContentProvider = ({ children }: { children: React.ReactNode }) => 
   useEffect(() => {
     if (user) {
       // Load from cache immediately for instant UI
-      const cachedContent = CacheManager.get<ContentData>(CONTENT_CACHE_KEY);
-      if (cachedContent) {
-        setContent(cachedContent);
+      const cachedData = CacheManager.get<ContentData>(DASHBOARD_CACHE_KEY);
+      if (cachedData) {
+        setDashboardData(cachedData);
         setLoading(false);
       }
 
       // Then fetch fresh data
-      fetchContent();
+      fetchDashboard();
     } else {
       // Clear cache on logout
       CacheManager.clear();
-      setContent(null);
+      setDashboardData(null);
       setLoading(false);
     }
   }, [user]);
@@ -78,7 +78,7 @@ export const ContentProvider = ({ children }: { children: React.ReactNode }) => 
     const handleOnline = () => {
       setIsOffline(false);
       if (user) {
-        fetchContent();
+        fetchDashboard();
       }
     };
 
@@ -96,18 +96,18 @@ export const ContentProvider = ({ children }: { children: React.ReactNode }) => 
   }, [user]);
 
   return (
-    <ContentContext.Provider
+    <DashboardContext.Provider
       value={{
-        content,
+        dashboardData,
         loading,
         error,
         isOffline,
-        refetchContent: fetchContent,
+        refetchDashboard: fetchDashboard,
       }}
     >
       {children}
-    </ContentContext.Provider>
+    </DashboardContext.Provider>
   );
 };
 
-export const useContent = () => useContext(ContentContext);
+export const useDashboard = () => useContext(DashboardContext);

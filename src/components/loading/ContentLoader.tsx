@@ -1,10 +1,10 @@
 "use client";
 
-import { useContent } from "@/context/ContentContext";
+import { useDashboard } from "@/context/ContentContext";
 import { AlertCircle, WifiOff } from "lucide-react";
 
 export function ContentLoader({ children }: { children: React.ReactNode }) {
-  const { loading, error, isOffline } = useContent();
+  const { loading, error, isOffline } = useDashboard();
 
   if (isOffline) {
     return (
@@ -32,7 +32,7 @@ export function ContentLoader({ children }: { children: React.ReactNode }) {
 }
 
 export function OfflineIndicator() {
-  const { isOffline } = useContent();
+  const { isOffline } = useDashboard();
 
   if (!isOffline) return null;
 

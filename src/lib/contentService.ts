@@ -50,11 +50,34 @@ export interface HealthTip {
   isActive: boolean;
 }
 
+export interface CycleHighlight {
+  _id: string;
+  icon: string;
+  title: string;
+  description: string;
+  action: string;
+  colorClass: "blush" | "peach" | "mint";
+  order: number;
+  isActive: boolean;
+}
+
+export interface DailyCheckoff {
+  _id: string;
+  userId: string;
+  date: string;
+  symptoms: string;
+  healthReport: string;
+  trendSymptom: string;
+  trendIntensity: string;
+}
+
 export interface ContentData {
   articles: Article[];
   quickActions: QuickAction[];
   symptomCategories: SymptomCategory[];
   healthTips: HealthTip[];
+  cycleHighlights: CycleHighlight[];
+  dailyCheckoff?: DailyCheckoff;
 }
 
 class ContentService {
@@ -80,6 +103,16 @@ class ContentService {
 
   async getHealthTips(): Promise<HealthTip[]> {
     const response = await api.get<HealthTip[]>("/content/health-tips");
+    return response.data;
+  }
+
+  async getCycleHighlights(): Promise<CycleHighlight[]> {
+    const response = await api.get<CycleHighlight[]>("/content/cycle-highlights");
+    return response.data;
+  }
+
+  async getDailyCheckoff(): Promise<DailyCheckoff | null> {
+    const response = await api.get<DailyCheckoff>("/content/daily-checkoff");
     return response.data;
   }
 }

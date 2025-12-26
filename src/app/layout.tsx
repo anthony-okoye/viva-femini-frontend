@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 import { AuthProvider } from "@/context/AuthContext";
-import { ContentProvider } from "@/context/ContentContext";
+import { DashboardProvider } from "@/context/ContentContext";
 import { UserProvider } from "@/context/UserContext";
 import { TrackingProvider } from "@/context/TrackingContext";
 import { HealthReportProvider } from "@/context/HealthReportContext";
@@ -38,14 +38,14 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <UserProvider>
-            <ContentProvider>
+            <DashboardProvider>
               <TrackingProvider>
                 <HealthReportProvider>
                   <AuthGuard>{children}</AuthGuard>
                   <OfflineIndicator />
                 </HealthReportProvider>
               </TrackingProvider>
-            </ContentProvider>
+            </DashboardProvider>
           </UserProvider>
         </AuthProvider>
       </body>
