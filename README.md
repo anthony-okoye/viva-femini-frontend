@@ -86,6 +86,13 @@ npm run dev
 
 The application will be available at `http://localhost:3000`
 
+### Demo/Test Account:
+For testing purposes, use the following credentials:
+- **Email**: nanosubnets@gmail.com
+- **Password**: Ademola15#
+
+**Note**: This account has pre-seeded data including cycle records, symptom logs, and health analytics.
+
 ### Production Build:
 ```bash
 # Build the application
@@ -180,8 +187,13 @@ The application uses a multi-context architecture for separation of concerns:
 
 ### 2. **UserContext**
 - Manages user profile data
-- Handles profile updates (name, email, profile picture)
-- Provides dynamic greeting based on time of day
+- Handles profile updates via account menu (name, email, profile picture)
+- Provides dynamic greeting based on current time:
+  - Morning (5 AM - 11:59 AM)
+  - Afternoon (12 PM - 4:59 PM)
+  - Evening (5 PM - 8:59 PM)
+  - Night (9 PM - 4:59 AM)
+- Profile picture upload (base64, max 500KB)
 
 ### 3. **DashboardContext** (formerly ContentContext)
 - Fetches dashboard-specific data:

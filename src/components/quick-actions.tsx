@@ -19,10 +19,10 @@ export function QuickActions() {
   const router = useRouter();
 
   return (
-    <Card className="p-5 border-0 shadow-sm overflow-x-auto">
+    <Card className="p-5 border-0 shadow-sm">
       <h3 className="font-semibold text-primary mb-4">Quick Action</h3>
 
-      <div className="flex gap-3 min-w-max sm:min-w-0">
+      <div className="flex gap-3 flex-wrap sm:flex-nowrap">
         {loading ? (
           <>
             <SkeletonQuickAction />
@@ -36,12 +36,12 @@ export function QuickActions() {
               <button
                 key={action._id}
                 onClick={() => router.push(action.route)}
-                className="flex-1 flex items-center gap-2 px-4 py-3 rounded-xl bg-gray-100 text-primary font-medium text-sm hover:opacity-90 transition-opacity cursor-pointer"
+                className="flex-1 min-w-[120px] flex items-center justify-center gap-2 px-3 py-3 rounded-xl bg-gray-100 text-primary font-medium text-sm hover:opacity-90 transition-opacity cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-white">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-white flex-shrink-0">
                   {IconComponent && <IconComponent />}
                 </div>
-                <span className="text-black whitespace-nowrap">{action.label}</span>
+                <span className="text-black text-xs sm:text-sm whitespace-nowrap">{action.label}</span>
               </button>
             );
           })
