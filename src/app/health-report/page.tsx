@@ -9,10 +9,10 @@ import { HistoricalDataCard } from "@/components/health-report/HistoricalDataCar
 
 export default function HealthReportPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <HealthHeader />
       
-      <main className="container mx-auto px-4 md:px-6 py-8">
+      <main className="container mx-auto px-4 md:px-6 py-8 overflow-x-hidden">
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Cycle Summary - Order 1 on mobile */}
           <CycleSummaryCard />
