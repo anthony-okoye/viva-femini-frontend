@@ -2,56 +2,73 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
+import { useUser } from "@/context/UserContext";
+import { ProfileModal } from "@/components/ProfileModal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { LogOut, User, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getGreeting } from "@/lib/utils/time";
+import { useState, useRef, useEffect } from "react";
 import HomeIcon from "@/assets/home.svg";
 import HeartIcon from "@/assets/heart.svg";
 import StethoscopeIcon from "@/assets/stethoscope_line.svg";
 
 export function HealthHeader() {
   const { user, logout } = useAuth();
+  const { profile } = useUser();
   const pathname = usePathname();
-  const displayName = user?.displayName || user?.email?.split('@')[0] || "User";
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const displayName = profile?.firstname || user?.displayName || user?.email?.split('@')[0] || "User";
+  const profileImage = profile?.profile_url || user?.photoURL || "";
+  const greeting = getGreeting();
 
   const navItems = [
     {
       label: "Home",
       href: "/dashboard",
-      icon: (
-        <HomeIcon />
-      ),
+      icon: <HomeIcon />,
     },
     {
       label: "Tracking",
       href: "/tracking",
-      icon: (
-        <HeartIcon />
-      ),
+      icon: <HeartIcon />,
     },
     {
       label: "Health Report",
       href: "/health-report",
-      icon: (
-        <StethoscopeIcon />
-      ),
+      icon: <StethoscopeIcon />,
     },
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
       <header className="flex items-center justify-between p-6 bg-background border-b border-gray-100">
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12 border-2 border-primary/10">
-            <AvatarImage src={user?.photoURL || ""} alt={displayName} />
+            <AvatarImage src={profileImage} alt={displayName} />
             <AvatarFallback className="bg-primary text-primary-foreground">
               {displayName.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="text-sm text-muted-foreground">Good Morning ☀️</p>
-            <p className="font-semibold text-foreground">{displayName}</p>
+            <p className="text-sm text-muted-foreground">{greeting}</p>
+            <p className="font-semibold text-foreground capitalize">{displayName}</p>
           </div>
         </div>
 
@@ -82,16 +99,48 @@ export function HealthHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={logout}
-            className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
-          >
-            <LogOut size={18} />
-            <span className="hidden sm:inline">Sign Out</span>
-          </button>
+        <div className="flex items-center gap-3" ref={dropdownRef}>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-all cursor-pointer"
+            >
+              <User size={18} />
+              <span className="hidden sm:inline">Account</span>
+              <ChevronDown size={16} className={cn("transition-transform", dropdownOpen && "rotate-180")} />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50">
+                <button
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    setProfileModalOpen(true);
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <User size={16} />
+                  Edit Profile
+                </button>
+                <div className="h-px bg-gray-200 my-1" />
+                <button
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    logout();
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                >
+                  <LogOut size={16} />
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
+
+      {/* Profile Modal */}
+      <ProfileModal open={profileModalOpen} onOpenChange={setProfileModalOpen} />
 
       {/* Mobile Bottom Navigation */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-menu-ash rounded-full border-t border-gray-200 shadow-lg z-50">

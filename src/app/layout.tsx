@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 
 import { AuthProvider } from "@/context/AuthContext";
 import { ContentProvider } from "@/context/ContentContext";
+import { UserProvider } from "@/context/UserContext";
+import { TrackingProvider } from "@/context/TrackingContext";
+import { HealthReportProvider } from "@/context/HealthReportContext";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import { OfflineIndicator } from "@/components/loading/ContentLoader";
 import { Inter } from "next/font/google";
@@ -34,10 +37,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <AuthProvider>
-          <ContentProvider>
-            <AuthGuard>{children}</AuthGuard>
-            <OfflineIndicator />
-          </ContentProvider>
+          <UserProvider>
+            <ContentProvider>
+              <TrackingProvider>
+                <HealthReportProvider>
+                  <AuthGuard>{children}</AuthGuard>
+                  <OfflineIndicator />
+                </HealthReportProvider>
+              </TrackingProvider>
+            </ContentProvider>
+          </UserProvider>
         </AuthProvider>
       </body>
     </html>
