@@ -4,16 +4,16 @@ Frontend application for VivaFemini - A women's health tracking application focu
 
 ## 📋 Table of Contents
 
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Environment Setup](#environment-setup)
-- [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
-- [Key Features](#key-features)
-- [Context Architecture](#context-architecture)
-- [Available Scripts](#available-scripts)
-- [Troubleshooting](#troubleshooting)
+- [🛠 Tech Stack](#-tech-stack)
+- [📦 Prerequisites](#-prerequisites)
+- [🚀 Installation](#-installation)
+- [⚙️ Environment Setup](#️-environment-setup)
+- [🏃 Running the Application](#-running-the-application)
+- [🏗 Project Structure](#-project-structure)
+- [🎯 Key Features](#-key-features)
+- [🔄 Context Architecture](#-context-architecture)
+- [📝 Available Scripts](#-available-scripts)
+- [🔧 Troubleshooting](#-troubleshooting)
 
 ## 🛠 Tech Stack
 
@@ -40,11 +40,13 @@ Before you begin, ensure you have the following installed:
 ## 🚀 Installation
 
 1. Navigate to the frontend directory:
+
 ```bash
 cd frontend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -80,6 +82,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3050
 ## 🏃 Running the Application
 
 ### Development Mode:
+
 ```bash
 npm run dev
 ```
@@ -87,13 +90,16 @@ npm run dev
 The application will be available at `http://localhost:3000`
 
 ### Demo/Test Account:
+
 For testing purposes, use the following credentials:
+
 - **Email**: nanosubnets@gmail.com
 - **Password**: Ademola15#
 
 **Note**: This account has pre-seeded data including cycle records, symptom logs, and health analytics.
 
 ### Production Build:
+
 ```bash
 # Build the application
 npm run build
@@ -103,6 +109,7 @@ npm start
 ```
 
 ### Linting:
+
 ```bash
 npm run lint
 ```
@@ -154,6 +161,7 @@ src/
 ### Pages:
 
 1. **Dashboard** (`/dashboard`)
+
    - Cycle calendar with current cycle day
    - Cycle highlights carousel
    - Daily check-offs
@@ -163,6 +171,7 @@ src/
    - Recommended articles
 
 2. **Tracking** (`/tracking`)
+
    - Symptom logging form
    - Multiple symptom categories
    - Flow intensity slider
@@ -181,11 +190,13 @@ src/
 The application uses a multi-context architecture for separation of concerns:
 
 ### 1. **AuthContext**
+
 - Manages Firebase authentication state
 - Provides user login/logout functionality
 - Persists auth state across sessions
 
 ### 2. **UserContext**
+
 - Manages user profile data
 - Handles profile updates via account menu (name, email, profile picture)
 - Provides dynamic greeting based on current time:
@@ -196,6 +207,7 @@ The application uses a multi-context architecture for separation of concerns:
 - Profile picture upload (base64, max 500KB)
 
 ### 3. **DashboardContext** (formerly ContentContext)
+
 - Fetches dashboard-specific data:
   - Articles
   - Quick actions
@@ -207,12 +219,14 @@ The application uses a multi-context architecture for separation of concerns:
 - Loads on login, cached for session
 
 ### 4. **TrackingContext**
+
 - Manages tracking page data
 - Fetches cycle records and symptom logs
 - Cache key: `tracking_data`
 - Loads on login, cached for session
 
 ### 5. **HealthReportContext**
+
 - Manages health report analytics:
   - Cycle summary
   - Symptom frequency percentages
@@ -222,6 +236,7 @@ The application uses a multi-context architecture for separation of concerns:
 - Loads on login, cached for session
 
 ### Caching Strategy:
+
 - All contexts use `CacheManager` for session-based caching
 - Data is cached on first fetch
 - Cache persists during login session
@@ -248,43 +263,57 @@ npm run type-check       # Run TypeScript compiler check
 ### Common Issues:
 
 #### 1. Firebase Authentication Error
+
 ```
 Error: Firebase: Error (auth/invalid-api-key)
 ```
+
 **Solution**: Verify Firebase credentials in `.env.local` are correct
 
 #### 2. API Connection Error
+
 ```
 Error: Network Error / CORS Error
 ```
-**Solution**: 
+
+**Solution**:
+
 - Ensure backend is running on `http://localhost:3050`
 - Check `NEXT_PUBLIC_API_URL` in `.env.local`
 - Verify backend CORS configuration allows `http://localhost:3000`
 
 #### 3. Build Errors
+
 ```
 Error: Module not found
 ```
-**Solution**: 
+
+**Solution**:
+
 - Delete `node_modules` and `.next` folders
 - Run `npm install` again
 - Clear Next.js cache: `rm -rf .next`
 
 #### 4. Hydration Errors
+
 ```
 Warning: Text content did not match
 ```
-**Solution**: 
+
+**Solution**:
+
 - Check for dynamic content rendering on server/client
 - Use `suppressHydrationWarning` prop where necessary
 - Ensure date formatting is consistent
 
 #### 5. Context Data Not Loading
+
 ```
 Dashboard shows loading state indefinitely
 ```
+
 **Solution**:
+
 - Check browser console for API errors
 - Verify user is logged in (check AuthContext)
 - Clear browser cache and localStorage
@@ -293,6 +322,7 @@ Dashboard shows loading state indefinitely
 ### Getting Help
 
 If you encounter issues not covered here:
+
 1. Check the [Next.js Documentation](https://nextjs.org/docs)
 2. Review the [Firebase Documentation](https://firebase.google.com/docs/web/setup)
 3. Check the backend README for API documentation
@@ -308,11 +338,13 @@ If you encounter issues not covered here:
 ## 📱 Responsive Design
 
 The application is fully responsive with breakpoints:
+
 - **Mobile**: < 768px
 - **Tablet**: 768px - 1024px
 - **Desktop**: > 1024px
 
 Key responsive features:
+
 - Mobile-first design approach
 - Touch-friendly UI elements
 - Optimized layouts for each breakpoint
@@ -322,7 +354,7 @@ Key responsive features:
 
 - **Tailwind CSS 4**: Utility-first CSS framework
 - **Custom Design System**: Defined in `globals.css`
-- **Color Palette**: 
+- **Color Palette**:
   - Primary: Pink (#E94867)
   - Secondary: Purple, Teal, Yellow
   - Neutrals: Gray scale
