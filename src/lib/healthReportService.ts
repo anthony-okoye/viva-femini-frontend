@@ -44,6 +44,16 @@ export interface CycleSummary {
   } | null;
 }
 
+export interface PeriodLength {
+  _id: string;
+  date: string;
+  flowValue: number;
+  timestamp: string;
+  sequenceOrder: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 class HealthReportService {
   async getCycleRecords(limit = 12): Promise<CycleRecord[]> {
     const response = await api.get<CycleRecord[]>(`/health-report/cycle-records?limit=${limit}`);
@@ -68,6 +78,11 @@ class HealthReportService {
 
   async getCycleSummary(): Promise<CycleSummary> {
     const response = await api.get<CycleSummary>("/health-report/cycle-summary");
+    return response.data;
+  }
+
+  async getPeriodLengthData(): Promise<PeriodLength[]> {
+    const response = await api.get<PeriodLength[]>("/health-report/period-length");
     return response.data;
   }
 }

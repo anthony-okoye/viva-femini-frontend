@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { healthReportService, CycleRecord, SymptomLog, SymptomFrequency, CycleSummary } from "@/lib/healthReportService";
+import { healthReportService, CycleRecord, SymptomLog, SymptomFrequency, CycleSummary, PeriodLength } from "@/lib/healthReportService";
 import { CacheManager } from "@/lib/cacheManager";
 import { useAuth } from "./AuthContext";
 
@@ -10,6 +10,7 @@ interface HealthReportData {
   symptomLogs: SymptomLog[];
   symptomFrequency: SymptomFrequency;
   cycleSummary: CycleSummary | null;
+  periodLengthData: PeriodLength[];
 }
 
 interface HealthReportContextType {
@@ -40,11 +41,12 @@ export const HealthReportProvider = ({ children }: { children: React.ReactNode }
       setError(null);
 
       // Fetch all health report data in parallel
-      const [cycleRecords, symptomLogs, symptomFrequency, cycleSummary] = await Promise.all([
+      const [cycleRecords, symptomLogs, symptomFrequency, cycleSummary, periodLengthData] = await Promise.all([
         healthReportService.getCycleRecords(12),
         healthReportService.getSymptomLogs(),
         healthReportService.getSymptomFrequency(),
         healthReportService.getCycleSummary(),
+        healthReportService.getPeriodLengthData(),
       ]);
 
       const data: HealthReportData = {
@@ -52,6 +54,7 @@ export const HealthReportProvider = ({ children }: { children: React.ReactNode }
         symptomLogs,
         symptomFrequency,
         cycleSummary,
+        periodLengthData,
       };
 
       setHealthReportData(data);

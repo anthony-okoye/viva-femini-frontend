@@ -35,3 +35,11 @@ export function useCycleRecords() {
     loading 
   };
 }
+
+export function usePeriodLength() {
+  const { healthReportData, loading } = useHealthReportContext();
+  return { 
+    periodLengthData: healthReportData?.periodLengthData || [], 
+    loading 
+  };
+}
