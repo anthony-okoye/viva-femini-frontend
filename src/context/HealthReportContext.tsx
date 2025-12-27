@@ -39,8 +39,6 @@ export const HealthReportProvider = ({ children }: { children: React.ReactNode }
       setLoading(true);
       setError(null);
 
-      console.log("🔄 Fetching health report data...");
-
       // Fetch all health report data in parallel
       const [cycleRecords, symptomLogs, symptomFrequency, cycleSummary] = await Promise.all([
         healthReportService.getCycleRecords(12),
@@ -48,13 +46,6 @@ export const HealthReportProvider = ({ children }: { children: React.ReactNode }
         healthReportService.getSymptomFrequency(),
         healthReportService.getCycleSummary(),
       ]);
-
-      console.log("✅ Health report data fetched:", {
-        cycleRecords: cycleRecords.length,
-        symptomLogs: symptomLogs.length,
-        symptomFrequency: Object.keys(symptomFrequency).length,
-        cycleSummary,
-      });
 
       const data: HealthReportData = {
         cycleRecords,

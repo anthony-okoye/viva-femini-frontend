@@ -37,18 +37,11 @@ export const TrackingProvider = ({ children }: { children: React.ReactNode }) =>
       setLoading(true);
       setError(null);
 
-      console.log("🔄 Fetching tracking data...");
-
       // Fetch tracking data for tracking page (if needed in future)
       const [cycleRecords, symptomLogs] = await Promise.all([
         trackingService.getCycleRecords(12),
         trackingService.getSymptomLogs(),
       ]);
-
-      console.log("✅ Tracking data fetched:", {
-        cycleRecords: cycleRecords.length,
-        symptomLogs: symptomLogs.length,
-      });
 
       const data: TrackingData = {
         cycleRecords,
