@@ -154,7 +154,7 @@ export function HealthHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-full px-8 py-2 font-medium transition-all duration-200 min-w-[70px]",
+                  "flex flex-col items-center gap-1 rounded-full px-6 py-2 font-medium transition-all duration-200 min-w-[70px]",
                   isActive
                     ? `bg-primary text-white shadow-sm ${
                         isHomeIcon 
